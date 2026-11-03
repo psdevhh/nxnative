@@ -1,0 +1,38 @@
+# Alien: Isolation base build, SDK 8.2.0, NVN.
+
+# ---- Identity ----
+title_id	010075D00E8BA000
+program_id	010075D00E8BA000
+
+# ---- App ----
+name	Alien: Isolation
+ipa	AlienIsolation.ipa
+app_category	public.app-category.games
+
+# ---- Versions ----
+build	v0	1.1_46609	main=32620c385527e689fb7968b2e6701b32	subsdk0=8df876f80ce4ceee62360b31405c452f	subsdk1=c8a3cc0b1d1858330a881c0c2fc87940	sdk=3ae34e689d7a35f13cbf42bfd672af8b
+package	v0
+shader_versions	v0
+
+# ---- Files ----
+# every module main imports from
+modules	main subsdk0 subsdk1 sdk
+romfs_marker	resources/nvn_shader_cache
+zip_store	.bnk:.fzip:.gz:.pak:.pak_switch:.pck:.png:.webm:.wem:.metallib
+
+# ---- Memory ----
+# main sets a heap of at most the pool − 64 MB: a 3328 MB heap region
+mem_reserve	0x100000000
+mem_alias	0x10000000
+mem_stack	0x10000000
+app_pool	0xCD500000
+# the NPDM declares 0 MB of system resource: IsVirtualAddressMemoryEnabled is false, as on Horizon (Big Brain Academy: Brain vs. Brain sets a heap only then)
+sys_resource	0x0
+
+# ---- Shader split ----
+shader_groups	/data/=data /resources/=resources
+shader_note	Alien: Isolation shaders
+
+# ---- After the rewrite ----
+# used memory for the rewritten modules, at least the default 64 MB
+mem_used	0x6800000

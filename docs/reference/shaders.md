@@ -663,7 +663,7 @@ Finding, keying and translating shaders (`dm/gfx/tools/shader_split.py`, `dmsh_b
 - **Symptom:** Metal rejects a translated geometry shader with `invalid return type 'main0_out' for kernel function`. The generated compute entry writes `out.gl_ViewportIndex` instead of placing that output in its emitted vertex records.
 - **Cause:** `ResourceReservations.FillIoOffsetMap` reserves a geometry output slot for `VertexIndex` when `UsesViewportIndex` is set. The geometry-to-compute transform therefore cannot find the viewport-index slot, leaves a raster output on the compute kernel, and builds its raster reader for the wrong builtin.
 - **Fix:** reserve the slot as `ViewportIndex`. Both the geometry store and the raster reader then use the same emitted vertex field. The value is preserved, including a dynamic index. The source participates in the chain fingerprint, the translator and lock must be rebuilt, and all shader libraries and the host must use the new chain. The synthetic compiler regression checks all five input topologies and compiles both their compute kernels and raster readers for macOS and iOS. It fails against the previous translator.
-- **Found on:** Alien: Isolation, both geometry shaders.
+- **Found on:** [Alien: Isolation](../../dm/games/010075D00E8BA000/README.md), both geometry shaders.
 
 ### Geometry passthrough and viewport masks in compute
 
@@ -1164,7 +1164,7 @@ Finding, keying and translating shaders (`dm/gfx/tools/shader_split.py`, `dmsh_b
 - **Symptom:** The Mac capture boot submits shader programs but writes no GLSLC capture files.
 - **Cause:** The source/import heuristic finds a compiler that the game can call. A cache hit lets the game submit a precompiled output without calling it.
 - **Fix:** If the profile requires no capture files, use an empty shader map for the capture boot to observe submitted shader keys. An empty capture can continue only after the offline split supplies every observed key. A stopped host, failed capture, missing key or no observations fails the check. This verifies coverage of the observed boot.
-- **Found on:** Alien: Isolation (SDK 8.2.0).
+- **Found on:** [Alien: Isolation](../../dm/games/010075D00E8BA000/README.md) (SDK 8.2.0).
 
 ### GLSLC GPU code version against the driver's range
 
